@@ -41,6 +41,3 @@ Like any other language, Python has distinct characteristics that set it apart. 
 - It's cross-platform, as code written on macOS works on Windows or Linux and vice versa.
 
 Some of these concepts might seem strange if you're new to programming. The following code aims to illustrate some Python features.
-
-Here's a curiosity: unlike in other languages, the function accepts an input parameter without specifying its type. The variable `x` first stores a string, then a float, and then an integer. The `function()` is called with an integer, but its value is divided by 2, and the result is automatically converted into a float.
-
