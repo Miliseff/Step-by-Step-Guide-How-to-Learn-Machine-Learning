@@ -1,4 +1,4 @@
----- Python Syntax 🐍----
+# ---- Python Syntax 🐍----
 
 The term syntax refers to the set of rules that define how code should be written in a particular programming language.
 
@@ -14,29 +14,29 @@ Let's see an example where we use strings, arithmetic operators, and the `if` co
 
 The following code simply defines three values `a`, `b`, and `c`, performs some operations with them, and displays the result on the screen.
 
-# Define a variable x with a string
+---Define a variable x with a string
 x = "The value of (a+b)*c is"
 
-# We can perform multiple assignments
+--- We can perform multiple assignments
 a, b, c = 4, 3, 2
 
-# Perform operations with a, b, c
+---Perform operations with a, b, c
 d = (a + b) * c
 
-# Define a boolean variable
+--- Define a boolean variable
 to_print = True
 
-# If to_print, print()
+--- If to_print, print()
 if to_print:
     print(x, d)
 
-# Output: The value of (a+b)*c is 14
+--- Output: The value of (a+b)*c is 14
 
 As you can see, Python syntax is very similar to natural language or pseudocode, making it relatively easy to read. Another advantage is that we don't need anything else; the above code can be executed as is. If you know other languages like C or Java, you'll find this comfortable, as there's no need to create a typical `main()` function.
 
 
 
------- Commenting 🗒️-----
+# ------ Commenting 🗒️-----
 
 Comments are blocks of text used to explain the code. They provide relevant information to other programmers or our future selves about the written code.
 
@@ -54,7 +54,7 @@ of code
 
 
 
-----Indentation and Code Blocks 🧱----
+# ----Indentation and Code Blocks 🧱----
 
 In Python, code blocks are represented by indentation. Although there's some debate about using tabs or spaces, the general rule is to use four spaces.
 
@@ -70,8 +70,8 @@ print("True")
 
 Unlike other programming languages, it's not necessary to use `;` to end each line in Python.
 
-# Other languages like C
-# require ; at the end of each line
+-- Other languages like C
+-- require ; at the end of each line
 
 x = 10;
 
@@ -86,7 +86,7 @@ x = 5; y = 10
 
 
 
----- Multiple Lines 📜----
+# ---- Multiple Lines 📜----
 
 In some situations, you might want to have a single instruction span multiple lines of code. One of the main reasons could be that it's too long, and in fact, in the PEP8 specification, it's recommended that lines not exceed 79 characters.
 
@@ -111,7 +111,7 @@ d = my_function(10,
 
 
 
----- Creating Variables 📊----
+# ---- Creating Variables 📊----
 
 You can create a variable and assign a value to it using `=`, but there are also other ways to do it in a slightly more sophisticated manner.
 
@@ -126,7 +126,7 @@ x, y, z = 1, 2, 3
 
 
 
----- Naming Variables 📝----
+# ---- Naming Variables 📝----
 
 You can name your variables however you like, but it's important to know that uppercase and lowercase letters are distinct. Variables `x` and `X` are different.
 
@@ -138,14 +138,14 @@ Additionally, there are certain rules when naming variables:
 
 Here are examples of valid and invalid variable names:
 
-# Valid
+--Valid
 _variable = 10
 vari_able = 20
 variable10 = 30
 variable = 60
 variaBle = 10
 
-# Invalid
+-- Invalid
 2variable = 10
 var-iable = 10
 var iable = 10
@@ -155,20 +155,20 @@ Another condition for naming a variable in Python is not to use reserved Python 
 import keyword
 print(keyword.kwlist)
 
-# Output:
-# ['False', 'None', 'True', 'and', 'as', 'assert',
-# 'async', 'await', 'break', 'class', 'continue',
-# 'def', 'del', 'elif', 'else', 'except', 'finally',
-# 'for', 'from', 'global', 'if', 'import', 'in', 'is',
-# 'lambda', 'nonlocal', 'not', 'or', 'pass', 'raise',
-# 'return', 'try', 'while', 'with', 'yield']
+-- Output:
+-- ['False', 'None', 'True', 'and', 'as', 'assert',
+-- 'async', 'await', 'break', 'class', 'continue',
+-- 'def', 'del', 'elif', 'else', 'except', 'finally',
+-- 'for', 'from', 'global', 'if', 'import', 'in', 'is',
+-- 'lambda', 'nonlocal', 'not', 'or', 'pass', 'raise',
+-- 'return', 'try', 'while', 'with', 'yield']
 
 In fact, with the following command, you can see all the keywords that cannot be used:
 
 import keyword
 print(keyword.kwlist)
 
-----Use of Parentheses 🎯----
+# ----Use of Parentheses 🎯----
 
 Python supports all common mathematical operators, known as arithmetic operators. Therefore, we can perform additions, subtractions, multiplications, exponents (using `**`), and others that we won't explain right now. In the following example, we perform several operations on the same line and store the result in `y`.
 
@@ -182,7 +182,7 @@ y = (x*3-3)**(10-2)+3
 
 Parentheses are not only applied to arithmetic operators but can also be used with other operators like relational or membership operators that we see in other posts.
 
----- Variables and Scope 🔍----
+# ---- Variables and Scope 🔍----
 
 A very important concept when defining a variable is to know its scope. In the following example, the variable with the value `10` has a global scope, and the one with the value `5` inside the function has a local scope. This means that when we do `print(x)`, we are accessing the global variable `x`, not the `x` defined within the function.
 
@@ -213,4 +213,4 @@ x = 10
 y = 20
 print("The values of x, y are:", x, y)
 
-# Output: The values of x, y are: 10 20
+-- Output: The values of x, y are: 10 20
