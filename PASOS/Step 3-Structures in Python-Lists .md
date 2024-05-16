@@ -1,45 +1,44 @@
-'''
 # Data Types in Python 🔢
 
 ## Integers (int) ➕➖
 
 Integers in Python allow us to store non-decimal numeric values, either positive or negative, of any value. The `type()` 
-function returns the type of the variable, and we can see that it is indeed of the class `int`.'''
+function returns the type of the variable, and we can see that it is indeed of the class `int`
 
-
+'''
 i = 12
 print(i)          # 12
 print(type(i))    # <class 'int'>
-
+'''
 
 ### Convert to int 🔄
 
-'''It is possible to convert another type to `int`.
+It is possible to convert another type to `int`.
 As explained, the `int` type cannot contain decimals, so if we try to convert a decimal number, everything to the right of the decimal point will be truncated.
-'''
 
+'''
 b = int(1.6)
 print(b) # 1
-
+'''
 
 ## Booleans (bool) ✔️❌
 
 ### Declare Boolean Variables
+Boolean variables can be declared as follows:
 
-'''Boolean variables can be declared as follows:'''
-
+'''
 x = True
 y = False
-
+'''
 
 ### Evaluate Expressions
 
-'''A boolean value can also be the result of evaluating an expression. Certain operators like greater than, less than, or equal to return a boolean value.'''
-
+A boolean value can also be the result of evaluating an expression. Certain operators like greater than, less than, or equal to return a boolean value.
+'''
 print(1 > 0)  # True
 print(1 <= 0) # False
 print(9 == 9) # True
-
+'''
 ### `bool` Function
 
 '''It is also possible to convert a certain value to `bool` using the `bool()` function.'''
