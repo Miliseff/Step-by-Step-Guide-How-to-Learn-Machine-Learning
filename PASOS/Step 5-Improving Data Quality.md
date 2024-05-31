@@ -16,8 +16,9 @@ Recall that machine learning models can only consume numeric data, and that nume
 
 This notebook presents and solves some of the most common issues of "untidy" data.  Note that different problems will require different methods, and they are beyond the scope of this notebook.
 
-
+```Python
 # Use the chown command to change the ownership of the repository to user
 !sudo chown -R jupyter:jupyter /home/jupyter/training-data-analyst
+```
 
 ### Import Libraries
