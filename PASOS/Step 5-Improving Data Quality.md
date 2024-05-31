@@ -268,3 +268,108 @@ df_transport.rename(columns = { 'Date': 'date', 'Zip Code':'zipcode', 'Model Yea
 # Output the first two rows.
 df_transport.head(2)
 ```
+
+ **Note:** Next we create a copy of the dataframe to avoid the "SettingWithCopyWarning: A value is trying to be set on a copy of a slice from a DataFrame" warning.  Run the cell to remove the value '<2006' from the modelyear feature column. 
+```Python
+
+ # Here, we create a copy of the dataframe to avoid copy warning issues.
+# TODO 3b
+df = df_transport.loc[df_transport.modelyear != '<2006'].copy()
+```
+```Python
+
+# Here we will confirm that the modelyear value '<2006' has been removed by doing a value count.
+df['modelyear'].value_counts(0)
+```
+
+#### Data Quality Issue #4:  
+##### Handling Categorical Columns
+
+The feature column "lightduty" is categorical and has a "Yes/No" choice.  We cannot feed values like this into a machine learning model.  We need to convert the binary answers from strings of yes/no to integers of 1/0.  There are various methods to achieve this.  We will use the "apply" method with a lambda expression.  Pandas. apply() takes a function and applies it to all values of a Pandas series.
+
+##### What is a Lambda Function?
+
+Typically, Python requires that you define a function using the def keyword. However, lambda functions are anonymous -- which means there is no need to name them. The most common use case for lambda functions is in code that requires a simple one-line function (e.g. lambdas only have a single expression).  
+
+As you progress through the Course Specialization, you will see many examples where lambda functions are being used.  Now is a good time to become familiar with them.
+
+```Python
+
+# Lets count the number of "Yes" and"No's" in the 'lightduty' feature column.
+df['lightduty'].value_counts(0)
+```
+```Python
+
+# Let's convert the Yes to 1 and No to 0.
+# The .apply takes a function and applies it to all values of a Pandas series (e.g. lightduty). 
+df.loc[:,'lightduty'] = df['lightduty'].apply(lambda x: 0 if x=='No' else 1)
+df['lightduty'].value_counts(0)
+```
+```Python
+
+# Confirm that "lightduty" has been converted.
+df.head()
+```
+
+#### One-Hot Encoding Categorical Feature Columns
+
+Machine learning algorithms expect input vectors and not categorical features. Specifically, they cannot handle text or string values.  Thus, it is often useful to transform categorical features into vectors.
+
+One transformation method is to create dummy variables for our categorical features.  Dummy variables are a set of binary (0 or 1) variables that each represent a single class from a categorical feature.  We simply  encode the categorical variable as a one-hot vector, i.e. a vector where only one element is non-zero, or hot.  With one-hot encoding, a categorical feature becomes an array whose size is the number of possible choices for that feature.
+
+Panda provides a function called "get_dummies" to convert a categorical variable into dummy/indicator variables.
+```Python
+# Making dummy variables for categorical data with more inputs.  
+data_dummy = pd.get_dummies(df[['zipcode','modelyear', 'fuel', 'make']], drop_first=True)
+
+# Output the first five rows.
+data_dummy.head()
+```
+```Python
+
+# Merging (concatenate) original data frame with 'dummy' dataframe.
+# TODO 4a
+df = pd.concat([df,data_dummy], axis=1)
+df.head()
+```
+```Python
+
+# Dropping attributes for which we made dummy variables.  Let's also drop the Date column.
+# TODO 4b
+df = df.drop(['date','zipcode','modelyear', 'fuel', 'make'], axis=1)
+```
+```Python
+
+# Confirm that 'zipcode','modelyear', 'fuel', and 'make' have been dropped.
+df.head()
+```
+
+#### Data Quality Issue #5:  
+##### Temporal Feature Columns
+
+Our dataset now contains year, month, and day feature columns.  Let's convert the month and day feature columns to meaningful representations as a way to get us thinking about changing temporal features -- as they are sometimes overlooked.  
+
+Note that the Feature Engineering course in this Specialization will provide more depth on methods to handle year, month, day, and hour feature columns.
+```Python
+
+# Let's print the unique values for "month", "day" and "year" in our dataset. 
+print ('Unique values of month:',df.month.unique())
+print ('Unique values of day:',df.day.unique())
+print ('Unique values of year:',df.year.unique())
+```
+
+Don't worry, this is the last time we will use this code, as you can develop an input pipeline to address these temporal feature columns in TensorFlow and Keras - and it is much easier!  But, sometimes you need to appreciate what you're not going to encounter as you move through the course!
+
+Run the cell to view the output.
+
+```Python
+
+# Here we map each temporal variable onto a circle such that the lowest value for that variable appears right next to the largest value. We compute the x- and y- component of that point using the sin and cos trigonometric functions.
+df['day_sin'] = np.sin(df.day*(2.*np.pi/31))
+df['day_cos'] = np.cos(df.day*(2.*np.pi/31))
+df['month_sin'] = np.sin((df.month-1)*(2.*np.pi/12))
+df['month_cos'] = np.cos((df.month-1)*(2.*np.pi/12))
+
+# Let's drop month, and day
+# TODO 5
+df = df.drop(['month','day','year'], axis=1)
