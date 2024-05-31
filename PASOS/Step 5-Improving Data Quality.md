@@ -344,7 +344,8 @@ df = df.drop(['date','zipcode','modelyear', 'fuel', 'make'], axis=1)
 df.head()
 ```
 
-#### Data Quality Issue #5:  
+#### Data Quality Issue #5: 
+
 ##### Temporal Feature Columns
 
 Our dataset now contains year, month, and day feature columns.  Let's convert the month and day feature columns to meaningful representations as a way to get us thinking about changing temporal features -- as they are sometimes overlooked.  
@@ -373,3 +374,14 @@ df['month_cos'] = np.cos((df.month-1)*(2.*np.pi/12))
 # Let's drop month, and day
 # TODO 5
 df = df.drop(['month','day','year'], axis=1)
+```
+```Python
+
+# scroll left to see the converted month and day coluumns.
+df.tail(4)
+```
+
+### Conclusion
+
+This notebook introduced a few concepts to improve data quality.  We resolved missing values, converted the Date feature column to a datetime format, renamed feature columns, removed a value from a feature column, created one-hot encoding features, and converted temporal features to meaningful representations.  By the end of our lab, we gained an understanding as to why data should be "cleaned" and "pre-processed" before input into a machine learning model.
+
