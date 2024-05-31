@@ -2,7 +2,6 @@
 
 **Learning Objectives**
 
-
 1. Resolve missing values
 2. Convert the Date feature column to a datetime format
 3. Rename a feature column, remove a value from a feature column
