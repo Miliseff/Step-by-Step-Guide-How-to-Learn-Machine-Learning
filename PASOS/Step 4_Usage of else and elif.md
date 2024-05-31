@@ -35,6 +35,7 @@ if b != 0:
 print("Outside if")
 ```
 
+
 There are other operators that will be covered in other chapters, such as comparing if one number is greater than another. Their use is the same as above.
 ```Python
 if b > 0:
