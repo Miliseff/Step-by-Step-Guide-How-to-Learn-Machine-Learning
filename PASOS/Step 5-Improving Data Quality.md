@@ -58,7 +58,6 @@ if not os.path.isdir("../data/transport"):
 Next, let's read in the dataset just copied from the cloud storage bucket and create a Pandas DataFrame.  We also add a Pandas .head() function to show you the top 5 rows of data in the DataFrame. Head() and Tail() are "best-practice" functions used to investigate datasets.  
 
 ```Python
-
 # Reading "untidy_vehicle_data_toy.csv" file using the read_csv() function included in the pandas library.
 df_transport = pd.read_csv('../data/transport/untidy_vehicle_data_toy.csv')
 
