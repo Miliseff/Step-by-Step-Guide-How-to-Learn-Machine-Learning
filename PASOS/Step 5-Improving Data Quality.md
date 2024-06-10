@@ -86,7 +86,6 @@ print(df_transport,5)
 
 At this point, we have only one column which contains a numerical value (e.g. Vehicles).  For features which contain numerical values, we are often interested in various statistical measures relating to those values. Note, that because we only have one numeric feature, we see only one summary stastic - for now.  
 ```Python
-
 # We can use .describe() to see some summary statistics for the numeric fields in our dataframe.
 df_transport.describe()
 ```
