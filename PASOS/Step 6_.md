@@ -52,3 +52,79 @@ En este ejemplo, utilizamos la función regplot de Seaborn para visualizar una r
 En este caso, la distancia del viaje, nuestra etiqueta X, y la cantidad justa, nuestro objetivo, parecen tener una relación lineal.
 
 Tenga en cuenta que, aunque la mayoría de los datos tienden a agruparse de forma lineal, también hay valores atípicos.
+
+>> En este módulo cubriremos el aprendizaje supervisado, que es una rama del aprendizaje automático en la que se dan ejemplos etiquetados del modelo.
+
+Dos de las clases más comunes de modelos de aprendizaje automático son los modelos de ML supervisados ​​y no supervisados.
+
+La diferencia clave es que con los modelos supervisados, tenemos etiquetas o, en otras palabras, las respuestas correctas a lo que sea que debemos aprender a predecir.
+
+En el aprendizaje no supervisado, los datos no tienen etiquetas.
+
+Este gráfico es un ejemplo de un tipo de problema que un modelo no supervisado podría intentar resolver.
+
+Aquí queremos analizar la antigüedad y los ingresos y luego agrupar o agrupar a los empleados para ver si alguien está en la vía rápida.
+
+Fundamentalmente, aquí no hay ninguna verdad fundamental.
+
+La gerencia no tiene, hasta donde sabemos, una gran mesa de personas a las que van a promover rápidamente y aquellas a las que no van a promover.
+
+En consecuencia, los problemas no supervisados ​​tienen que ver con el descubrimiento, con mirar los datos sin procesar y ver si se dividen naturalmente en grupos.
+
+A primera vista parece que hay dos clusters o grupos distintos que podría separar muy bien con una línea.
+
+Sin embargo, en este curso nos centraremos en problemas de aprendizaje automático supervisado como este.
+
+La diferencia fundamental es que con el aprendizaje supervisado tenemos cierta noción de una etiqueta o una característica de cada punto de datos que nos importa mucho.
+
+Normalmente, esto es algo que conocemos a través de datos históricos pero no lo sabemos en tiempo real.
+
+Sabemos otras cosas que llamamos predictores y queremos utilizar esos predictores para predecir lo que no sabemos.
+
+Por ejemplo, digamos que eres el camarero de un restaurante.
+
+Tienes datos históricos del monto de la factura y de cuánta propina dieron las diferentes personas.
+
+Ahora estás mirando al grupo sentado en la mesa de la esquina.
+
+Sabes cuál es su factura total, pero no sabes cuál será su propina.
+
+En datos históricos, la propina es una etiqueta.
+
+Usted crea un modelo para predecir la propina a partir del monto de la factura, luego intenta predecir el
+
+Sugerencia en tiempo real basada en los datos históricos y los valores que conoce para la tabla específica.
+
+Dentro del ML supervisado, existen dos tipos de problemas: regresión y clasificación.
+
+Para explicarlos, profundicemos un poco más en estos datos.
+
+En este conjunto de datos de propinas, un conjunto de datos de ejemplo que viene con un paquete de Python seaborn, cada fila tiene muchas características, como factura total, propina y sexo.
+
+En el aprendizaje automático, llamamos a cada fila un ejemplo.
+
+Elegiremos una de las columnas como la característica que queremos predecir llamada etiqueta, y elegiremos un conjunto de otras columnas que se denominan características.
+
+En la opción uno del modelo, queremos predecir el monto de la propina; por lo tanto, la punta de la columna es mi etiqueta.
+
+Puedo usar una, todas o cualquier cantidad de columnas como funciones para predecir la propina.
+02:50
+Este será un modelo de regresión porque la punta es una etiqueta continua.
+
+En la opción dos del modelo, queremos predecir el sexo del cliente; por lo tanto, el sexo de la columna es la etiqueta.
+
+Una vez más, usaré un conjunto del resto de columnas como funciones para intentar predecir el sexo del cliente.
+
+Este será un modelo de clasificación porque nuestra etiqueta sexo tiene un número discreto de valores o clases.
+
+En resumen, dependiendo del problema que intente resolver, los datos que tenga, la explicabilidad, etc., determinarán qué modelos de aprendizaje automático utilizará para encontrar una solución.
+
+Sus datos no están etiquetados, no podremos utilizar el aprendizaje supervisado en ese momento y recurriremos a algoritmos de agrupación para descubrir propiedades interesantes de los datos.
+
+Tus datos están etiquetados y la etiqueta es raza de perro, que es una cantidad discreta ya que hay un número finito de razas de perros, utilizamos un algoritmo de clasificación entonces.
+
+Si en cambio la etiqueta es peso del perro, que es una cantidad continua, deberíamos utilizar un algoritmo de regresión.
+
+La etiqueta, nuevamente, es lo que estás tratando de predecir.
+
+En el aprendizaje supervisado, tienes algunos datos con las respuestas correctas.
