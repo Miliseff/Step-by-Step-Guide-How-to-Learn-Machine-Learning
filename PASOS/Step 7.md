@@ -15,7 +15,6 @@ This lab is an introduction to linear regression using Python and Scikit-Learn. 
 Each learning objective will correspond to a __#TODO__ in the [student lab notebook](../labs/intro_linear_regression.ipynb) -- try to complete that notebook first before reviewing this solution notebook.
 
 
-
 ### Import Libraries
 
 Importing Pandas, a data processing and CSV file I/O libraries
