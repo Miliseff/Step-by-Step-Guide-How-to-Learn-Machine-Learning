@@ -2,8 +2,10 @@
 
 Suppose we want to project the outcomes of coin flips.
 We all know that for a fair coin, the expected value is 50 percent heads and 50 percent tails.
+
 What if we had instead an unfair coin, like with a bend in it?
 Now let's say we want to generalize coin-flip prediction to all coins, fair and unfair, big and small, heavy and light, et cetera.
+
 What features could we use to predict whether a flip would be heads or tails?
 Perhaps we could use the angle of the bend because it disabilities X percent of mass in
 the other dimension and/or creates a difference in rotation due to air resistance or center of mass.
@@ -15,8 +17,10 @@ However, they're only one side of the coin, pun intended.
 The rest comes down to the action of the flip itself, such as how much linear/angular velocity the
 coin was given, the angle of launch, the angle of what it lands on, wind speed, et cetera.
 These might be a bit harder to measure.
+
 Now that we have all these features, what's the simplest model we could use to project heads or tails?
 Linear regression, of course!
+
 What could go wrong with this choice, though?
 Our labels are heads or tails, or thought of in another way, heads or not heads,
 which you can represent with a one-hot encoding of one for heads and zero for not heads.
@@ -36,10 +40,12 @@ the mean squared error loss, we change the activation function from linear to si
 The input into the sigmoid, normally the output of linear regression, is called the logit.
 So we are performing a nonlinear transformation on our linear model.
 Notice how the probability asymptotes to zero when the logits go to negative infinity and to one when the logits go to positive infinity.
+
 What does this imply for training?
 Unlike mean squared error, the sigmoid never guesses 1.0 or 0.0 probability.
 This means that in gradient descent's constant drive to get the loss closer and closer to zero, it will drive
 the weights closer and closer to plus or minus infinity in the absence of regularization which can lead to problems.
+
 First, though, how can we interpret the output of a sigmoid?
 Is it just some function that's range is zero to one, of which there are many, or is it something more?
 The good news is that it is something more.
@@ -70,6 +76,7 @@ If you use unregularized logistic regression, this will lead to absolute overfit
 on all examples and never gets there, the weights for each indicator feature will be driven to positive infinity or negative infinity.
 This can happen in practice in high- dimensional data with feature crosses.
 Often, there's a huge mass of rare crosses that happens only on one example each.
+
 So how can we protect ourselves from overfitting?
 Which of these is important when performing logistic regression?
 The correct answer is both A and B. Adding regularization to logistic regression helps keep the model simpler by having smaller parameter weights.
@@ -78,6 +85,7 @@ keep pushing the weights from closer to closer to plus or minus infinity and cau
 Also with now smaller logits, we can now stay in the less-flat portions of the sigmoid
 function, making our gradients less closer to zero and thus allowing weight updates and training to continue.
 C is incorrect.
+
 Therefore, so is E because regularization does not transform the outputs into calibrated probability estimate.
 The great thing about logistic regression is that it already outputs the calibrated probability estimate, since the sigmoid function is accumulated distribution function of the logistic-probability distribution.
 This allows us to actually predict probabilities instead of just binary answers, like yes or no, true or false, buy or sell, et cetera.
@@ -100,11 +108,13 @@ Even though L1 regularization and early stopping seem a bit redundant, for real-
 quite choose the optimal hyper parameters, and thus early stopping can help fix that choice for you.
 It's great that we can obtain a probability from our logistic-regression model.
 However, at the end of the day, sometimes users just want a simple decision to be made for them for their real-world problems.
+
 Should the e-mail be sent to the spam folder or not?
 Should the loan be approved or not?
 Which road should we route the user through?
 How can we use a probability estimate to help the tool, used in our model, to make a decision?
 We choose a threshold.
+
 A simple threshold of a binary-classification problem would be all probabilities less than or equal to
 50 percent should be a no, and all probabilities greater than 50 percent should be a yes.
 However, for studying real-world problems, we may want a different split, like 60/40, 20/80, 99/1, et cetera, depending on how we want
@@ -122,9 +132,11 @@ To create a curve, we would pick each possible decision threshold and re-evaluat
 Each threshold value creates a single point, but by evaluating many thresholds, eventually a curve is formed.
 Fortunately, there's an efficient sorting-based algorithm to do this.
 Each model will create a different ROC curve, so how can we use these curves to compare
+
 the relative performance of our models when we don't know exactly what decision threshold we want to use?
 We can use the area under the curve as an aggregate measure of performance across all possible classification thresholds.
 AUC helps you choose between models when you don't know what decision threshold is going to ultimately used.
+
 It is like asking, "If we pick a random positive and a random negative, what's the probability my model scores them in the correct relative order?"
 The nice thing about AUC is that it's scale invariant and classification-threshold invariant.
 People like to use it for those reasons.
@@ -149,12 +161,14 @@ You'll note that things are pretty well calibrated in the moderate range, but th
 This can happen when parts of the data space is not well represented or because of noise or because of overly strong regularization.
 The bucketing can be done in a couple of ways.
 You can bucket by literally breaking up the target predictions, or we can bucket by quantiles.
+
 Why do we need to bucket prediction to make calibration plots when predicting probabilities?
 For any given event, the true label is either zero or one.
 For example, not clicked or clicked.
 But our prediction values will always be a probabilistic guess somewhere in the middle, like 0.1 or 0.33.
 For any individual example, we're always off, but if we group enough examples together, we'd like to see that
 on average the sum of the true zeroes and ones is about the same as the mean probability we're predicting.
+
 Which of these is important in performing logistic regression?
 The correct answer is all of the above.
 It is extremely important that our model generalizes so that we have the best predictions on new data, which is the entire reason we created the model to begin with.
