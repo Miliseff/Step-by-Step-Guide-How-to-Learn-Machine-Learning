@@ -224,9 +224,10 @@ Here, each example returns a [logit](https://developers.google.com/machine-learn
 To convert these logits to a probability for each class, use the [softmax](https://developers.google.com/machine-learning/crash-course/glossary#softmax) function:
 tf.nn.softmax(predictions[:5])
 Taking the `tf.argmax` across classes gives us the predicted class index. But, the model hasn't been trained yet, so these aren't good predictions:
+```Python
 print("Prediction: {}".format(tf.argmax(predictions, axis=1)))
 print("    Labels: {}".format(labels))
-
+```
 
 ## Train the model
 
@@ -242,4 +243,106 @@ Our model will calculate its loss using the `tf.keras.losses.SparseCategoricalCr
 
 ```python
 loss_object = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
+```
+```Python
+def loss(model, x, y, training):
+  # training=training is needed only if there are layers with different
+  # behavior during training versus inference (e.g. Dropout).
+  y_ = model(x, training=training)
+
+  return loss_object(y_true=y, y_pred=y_)
+
+
+l = loss(model, features, labels, training=False)
+print("Loss test: {}".format(l))
+```
+Use the `tf.GradientTape` context to calculate the *[gradients](https://developers.google.com/machine-learning/crash-course/glossary#gradient)* used to optimize your model:
+
+```Python
+def grad(model, inputs, targets):
+  with tf.GradientTape() as tape:
+    loss_value = loss(model, inputs, targets, training=True)
+  return loss_value, tape.gradient(loss_value, model.trainable_variables)
+```
+  ### Create an optimizer
+
+An *[optimizer](https://developers.google.com/machine-learning/crash-course/glossary#optimizer)* applies the computed gradients to the model's variables to minimize the `loss` function. You can think of the loss function as a curved surface (see Figure 3) and we want to find its lowest point by walking around. The gradients point in the direction of steepest ascent—so we'll travel the opposite way and move down the hill. By iteratively calculating the loss and gradient for each batch, we'll adjust the model during training. Gradually, the model will find the best combination of weights and bias to minimize loss. And the lower the loss, the better the model's predictions.
+
+<table>
+  <tr><td>
+    <img src="https://cs231n.github.io/assets/nn3/opt1.gif" width="70%"
+         alt="Optimization algorithms visualized over time in 3D space.">
+  </td></tr>
+  <tr><td align="center">
+    <b>Figure 3.</b> Optimization algorithms visualized over time in 3D space.<br/>(Source: <a href="http://cs231n.github.io/neural-networks-3/">Stanford class CS231n</a>, MIT License, Image credit: <a href="https://twitter.com/alecrad">Alec Radford</a>)
+  </td></tr>
+</table>
+
+TensorFlow has many optimization algorithms available for training. This model uses the `tf.keras.optimizers.SGD` that implements the *[stochastic gradient descent](https://developers.google.com/machine-learning/crash-course/glossary#gradient_descent)* (SGD) algorithm. The `learning_rate` sets the step size to take for each iteration down the hill. This is a *hyperparameter* that you'll commonly adjust to achieve better results.
+
+Let's setup the optimizer:
+```Python
+optimizer = tf.keras.optimizers.SGD(learning_rate=0.01)
+```
+We'll use this to calculate a single optimization step:
+```Python
+loss_value, grads = grad(model, features, labels)
+
+print("Step: {}, Initial Loss: {}".format(optimizer.iterations.numpy(),
+                                          loss_value.numpy()))
+
+optimizer.apply_gradients(zip(grads, model.trainable_variables))
+
+print("Step: {},         Loss: {}".format(optimizer.iterations.numpy(),
+                                          loss(model, features, labels, training=True).numpy()))
+```
+
+
+### Training loop
+
+With all the pieces in place, the model is ready for training! A training loop feeds the dataset examples into the model to help it make better predictions. The following code block sets up these training steps:
+
+1. Iterate each *epoch*. An epoch is one pass through the dataset.
+2. Within an epoch, iterate over each example in the training `Dataset` grabbing its *features* (`x`) and *label* (`y`).
+3. Using the example's features, make a prediction and compare it with the label. Measure the inaccuracy of the prediction and use that to calculate the model's loss and gradients.
+4. Use an `optimizer` to update the model's variables.
+5. Keep track of some stats for visualization.
+6. Repeat for each epoch.
+
+The `num_epochs` variable is the number of times to loop over the dataset collection. Counter-intuitively, training a model longer does not guarantee a better model. `num_epochs` is a *[hyperparameter](https://developers.google.com/machine-learning/glossary/#hyperparameter)* that you can tune. Choosing the right number usually requires both experience and experimentation:
+
+```Python
+## Note: Rerunning this cell uses the same model variables
+
+# Keep results for plotting
+train_loss_results = []
+train_accuracy_results = []
+
+num_epochs = 201
+
+for epoch in range(num_epochs):
+  epoch_loss_avg = tf.keras.metrics.Mean()
+  epoch_accuracy = tf.keras.metrics.SparseCategoricalAccuracy()
+
+  # Training loop - using batches of 32
+  for x, y in train_dataset:
+    # Optimize the model
+    loss_value, grads = grad(model, x, y)
+    optimizer.apply_gradients(zip(grads, model.trainable_variables))
+
+    # Track progress
+    epoch_loss_avg.update_state(loss_value)  # Add current batch loss
+    # Compare predicted label to actual label
+    # training=True is needed only if there are layers with different
+    # behavior during training versus inference (e.g. Dropout).
+    epoch_accuracy.update_state(y, model(x, training=True))
+
+  # End epoch
+  train_loss_results.append(epoch_loss_avg.result())
+  train_accuracy_results.append(epoch_accuracy.result())
+
+  if epoch % 50 == 0:
+    print("Epoch {:03d}: Loss: {:.3f}, Accuracy: {:.3%}".format(epoch,
+                                                                epoch_loss_avg.result(),
+                                                                epoch_accuracy.result()))
 ```
