@@ -23,16 +23,21 @@ This tutorial is structured like many TensorFlow programs:
 
 ### Configure imports
 
+```Python
 Import TensorFlow and the other required Python modules. By default,
 TensorFlow uses [eager execution](../../guide/eager.ipynb) to evaluate operations immediately, returning concrete values instead of creating a computational graph that is executed later. If you are used to a REPL or the `python` interactive console, this feels familiar.
-
+```
+```Python
 import os
 import matplotlib.pyplot as plt
-
+```
+```Python
 import tensorflow as tf
-
+```
+```Python
 print("TensorFlow version: {}".format(tf.__version__))
 print("Eager execution: {}".format(tf.executing_eagerly()))
+```
 
 ## The Iris classification problem
 
@@ -43,6 +48,7 @@ The Iris genus entails about 300 species, but our program will only classify the
 * Iris setosa
 * Iris virginica
 * Iris versicolor
+
 
 <table>
   <tr><td>
@@ -66,11 +72,11 @@ Download the dataset file and convert it into a structure that can be used by th
 
 Download the training dataset file using the `tf.keras.utils.get_file` function. This returns the file path of the downloaded file:
 
-
+```Python
 train_dataset_url = "https://storage.googleapis.com/download.tensorflow.org/data/iris_training.csv"
 
 train_dataset_fp = tf.keras.utils.get_file(fname=os.path.basename(train_dataset_url),
                                            origin=train_dataset_url)
 
 print("Local copy of the dataset file: {}".format(train_dataset_fp))
-
+```
