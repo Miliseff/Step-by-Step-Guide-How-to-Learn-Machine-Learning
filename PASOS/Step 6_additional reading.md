@@ -1,4 +1,4 @@
-Cómo se utiliza EDA en el aprendizaje automático?
+# Cómo se utiliza EDA en el aprendizaje automático?
 
 Como mencionamos, el enfoque de análisis de datos exploratorio no impone modelos deterministas o probabilísticos sobre los datos.
 
@@ -108,7 +108,7 @@ Elegiremos una de las columnas como la característica que queremos predecir lla
 En la opción uno del modelo, queremos predecir el monto de la propina; por lo tanto, la punta de la columna es mi etiqueta.
 
 Puedo usar una, todas o cualquier cantidad de columnas como funciones para predecir la propina.
-02:50
+
 Este será un modelo de regresión porque la punta es una etiqueta continua.
 
 En la opción dos del modelo, queremos predecir el sexo del cliente; por lo tanto, el sexo de la columna es la etiqueta.
