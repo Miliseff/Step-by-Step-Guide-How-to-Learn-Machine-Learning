@@ -23,10 +23,10 @@ This tutorial is structured like many TensorFlow programs:
 6. 
 ### Configure imports
 
-```Python
 Import TensorFlow and the other required Python modules. By default,
-TensorFlow uses [eager execution](../../guide/eager.ipynb) to evaluate operations immediately, returning concrete values instead of creating a computational graph that is executed later. If you are used to a REPL or the `python` interactive console, this feels familiar.
-```
+TensorFlow uses [eager execution](../../guide/eager.ipynb) to evaluate operations immediately, returning concrete values instead of creating a computational graph that is executed later.
+If you are used to a REPL or the `python` interactive console, this feels familiar.
+
 ```Python
 import os
 import matplotlib.pyplot as plt
@@ -41,7 +41,8 @@ print("Eager execution: {}".format(tf.executing_eagerly()))
 
 ## The Iris classification problem
 
-Imagine you are a botanist seeking an automated way to categorize each Iris flower you find. Machine learning provides many algorithms to classify flowers statistically. For instance, a sophisticated machine learning program could classify flowers based on photographs. Our ambitions are more modest—we're going to classify Iris flowers based on the length and width measurements of their [sepals](https://en.wikipedia.org/wiki/Sepal) and [petals](https://en.wikipedia.org/wiki/Petal).
+Imagine you are a botanist seeking an automated way to categorize each Iris flower you find. Machine learning provides many algorithms to classify flowers statistically. 
+For instance, a sophisticated machine learning program could classify flowers based on photographs. Our ambitions are more modest—we're going to classify Iris flowers based on the length and width measurements of their [sepals](https://en.wikipedia.org/wiki/Sepal) and [petals](https://en.wikipedia.org/wiki/Petal).
 
 The Iris genus entails about 300 species, but our program will only classify the following three:
 
@@ -65,11 +66,9 @@ Fortunately, someone has already created a [dataset of 120 Iris flowers](https:/
 
 
 ## Import and parse the training dataset
-
 Download the dataset file and convert it into a structure that can be used by this Python program.
 
 ### Download the dataset
-
 Download the training dataset file using the `tf.keras.utils.get_file` function. This returns the file path of the downloaded file:
 
 ```Python
@@ -117,12 +116,14 @@ For more information about features and labels, see the [ML Terminology section 
 ```Python
 class_names = ['Iris setosa', 'Iris versicolor', 'Iris virginica']
 ```
-### Create a `tf.data.Dataset`
 
+
+### Create a `tf.data.Dataset`
 TensorFlow's [Dataset API](../../guide/data.ipynb) handles many common cases for loading data into a model. This is a high-level API for reading data and transforming it into a form used for training.
 
 
-Since the dataset is a CSV-formatted text file, use the `tf.data.experimental.make_csv_dataset` function to parse the data into a suitable format. Since this function generates data for training models, the default behavior is to shuffle the data (`shuffle=True, shuffle_buffer_size=10000`), and repeat the dataset forever (`num_epochs=None`). We also set the [batch_size](https://developers.google.com/machine-learning/glossary/#batch_size) parameter:
+Since the dataset is a CSV-formatted text file, use the `tf.data.experimental.make_csv_dataset` function to parse the data into a suitable format.
+Since this function generates data for training models, the default behavior is to shuffle the data (`shuffle=True, shuffle_buffer_size=10000`), and repeat the dataset forever (`num_epochs=None`). We also set the [batch_size](https://developers.google.com/machine-learning/glossary/#batch_size) parameter:
 batch_size = 32
 
 ```Python
@@ -144,7 +145,8 @@ features, labels = next(iter(train_dataset))
 print(features)
 ```
 
-Notice that like-features are grouped together, or *batched*. Each example row's fields are appended to the corresponding feature array. Change the `batch_size` to set the number of examples stored in these feature arrays.
+Notice that like-features are grouped together, or *batched*. Each example row's fields are appended to the corresponding feature array.
+Change the `batch_size` to set the number of examples stored in these feature arrays.
 
 You can start to see some clusters by plotting a few features from the batch:
 
@@ -185,10 +187,16 @@ print(features[:5])
 ## Select the type of model
 ```
 
-### Why model?
-A *[model](https://developers.google.com/machine-learning/crash-course/glossary#model)* is a relationship between features and the label.  For the Iris classification problem, the model defines the relationship between the sepal and petal measurements and the predicted Iris species. Some simple models can be described with a few lines of algebra, but complex machine learning models have a large number of parameters that are difficult to summarize.
 
-Could you determine the relationship between the four features and the Iris species *without* using machine learning?  That is, could you use traditional programming techniques (for example, a lot of conditional statements) to create a model?  Perhaps—if you analyzed the dataset long enough to determine the relationships between petal and sepal measurements to a particular species. And this becomes difficult—maybe impossible—on more complicated datasets. A good machine learning approach *determines the model for you*. If you feed enough representative examples into the right machine learning model type, the program will figure out the relationships for you.
+### Why model?
+A *[model](https://developers.google.com/machine-learning/crash-course/glossary#model)* is a relationship between features and the label.
+For the Iris classification problem, the model defines the relationship between the sepal and petal measurements and the predicted Iris species.
+Some simple models can be described with a few lines of algebra, but complex machine learning models have a large number of parameters that are difficult to summarize.
+
+Could you determine the relationship between the four features and the Iris species *without* using machine learning?  That is, could you use traditional programming techniques (for example, a lot of conditional statements) to create a model? 
+Perhaps—if you analyzed the dataset long enough to determine the relationships between petal and sepal measurements to a particular species. And this becomes difficult—maybe impossible—on more complicated datasets.
+A good machine learning approach *determines the model for you*. If you feed enough representative examples into the right machine learning model type, the program will figure out the relationships for you.
+
 
 ### Select the model
 We need to select the kind of model to train. There are many types of models and picking a good one takes experience. This tutorial uses a neural network to solve the Iris classification problem. *[Neural networks](https://developers.google.com/machine-learning/glossary/#neural_network)* can find complex relationships between features and the label. It is a highly-structured graph, organized into one or more *[hidden layers](https://developers.google.com/machine-learning/glossary/#hidden_layer)*. Each hidden layer consists of one or more *[neurons](https://developers.google.com/machine-learning/glossary/#neuron)*. There are several categories of neural networks and this program uses a dense, or *[fully-connected neural network](https://developers.google.com/machine-learning/glossary/#fully_connected_layer)*: the neurons in one layer receive input connections from *every* neuron in the previous layer. For example, Figure 2 illustrates a dense neural network consisting of an input layer, two hidden layers, and an output layer:
@@ -203,10 +211,11 @@ We need to select the kind of model to train. There are many types of models and
   </td></tr>
 </table>
 
-When the model from Figure 2 is trained and fed an unlabeled example, it yields three predictions: the likelihood that this flower is the given Iris species. This prediction is called *[inference](https://developers.google.com/machine-learning/crash-course/glossary#inference)*. For this example, the sum of the output predictions is 1.0. In Figure 2, this prediction breaks down as: `0.02` for *Iris setosa*, `0.95` for *Iris versicolor*, and `0.03` for *Iris virginica*. This means that the model predicts—with 95% probability—that an unlabeled example flower is an *Iris versicolor*.
+When the model from Figure 2 is trained and fed an unlabeled example, it yields three predictions: the likelihood that this flower is the given Iris species. This prediction is called *[inference](https://developers.google.com/machine-learning/crash-course/glossary#inference)*.
+For this example, the sum of the output predictions is 1.0. In Figure 2, this prediction breaks down as: `0.02` for *Iris setosa*, `0.95` for *Iris versicolor*, and `0.03` for *Iris virginica*. This means that the model predicts—with 95% probability—that an unlabeled example flower is an *Iris versicolor*.
+
 
 ### Create a model using Keras
-
 The TensorFlow `tf.keras` API is the preferred way to create models and layers. This makes it easy to build models and experiment while Keras handles the complexity of connecting everything together.
 
 The `tf.keras.Sequential` model is a linear stack of layers. Its constructor takes a list of layer instances, in this case, two `tf.keras.layers.Dense` layers with 10 nodes each, and an output layer with 3 nodes representing our label predictions. The first layer's `input_shape` parameter corresponds to the number of features from the dataset, and is required:
@@ -218,6 +227,8 @@ model = tf.keras.Sequential([
 The *[activation function](https://developers.google.com/machine-learning/crash-course/glossary#activation_function)* determines the output shape of each node in the layer. These non-linearities are important—without them the model would be equivalent to a single layer. There are many `tf.keras.activations`, but [ReLU](https://developers.google.com/machine-learning/crash-course/glossary#ReLU) is common for hidden layers.
 
 The ideal number of hidden layers and neurons depends on the problem and the dataset. Like many aspects of machine learning, picking the best shape of the neural network requires a mixture of knowledge and experimentation. As a rule of thumb, increasing the number of hidden layers and neurons typically creates a more powerful model, which requires more data to train effectively.
+
+
 ### Using the model
 
 Let's have a quick look at what this model does to a batch of features:
@@ -227,39 +238,42 @@ Here, each example returns a [logit](https://developers.google.com/machine-learn
 
 To convert these logits to a probability for each class, use the [softmax](https://developers.google.com/machine-learning/crash-course/glossary#softmax) function:
 tf.nn.softmax(predictions[:5])
+
 Taking the `tf.argmax` across classes gives us the predicted class index. But, the model hasn't been trained yet, so these aren't good predictions:
 ```Python
 print("Prediction: {}".format(tf.argmax(predictions, axis=1)))
 print("    Labels: {}".format(labels))
 ```
 
-## Train the model
 
+## Train the model
 *[Training](https://developers.google.com/machine-learning/crash-course/glossary#training)* is the stage of machine learning when the model is gradually optimized, or the model *learns* the dataset. The goal is to learn enough about the structure of the training dataset to make predictions about unseen data. If you learn *too much* about the training dataset, then the predictions only work for the data it has seen and will not be generalizable. This problem is called *[overfitting](https://developers.google.com/machine-learning/crash-course/glossary#overfitting)*—it's like memorizing the answers instead of understanding how to solve a problem.
 
 The Iris classification problem is an example of *[supervised machine learning](https://developers.google.com/machine-learning/glossary/#supervised_machine_learning)*: the model is trained from examples that contain labels. In *[unsupervised machine learning](https://developers.google.com/machine-learning/glossary/#unsupervised_machine_learning)*, the examples don't contain labels. Instead, the model typically finds patterns among the features.
 
-### Define the loss and gradient function
 
-Both training and evaluation stages need to calculate the model's *[loss](https://developers.google.com/machine-learning/crash-course/glossary#loss)*. This measures how off a model's predictions are from the desired label, in other words, how bad the model is performing. We want to minimize, or optimize, this value.
+### Define the loss and gradient function
+Both training and evaluation stages need to calculate the model's *[loss](https://developers.google.com/machine-learning/crash-course/glossary#loss)*. 
+This measures how off a model's predictions are from the desired label, in other words, how bad the model is performing. We want to minimize, or optimize, this value.
 
 Our model will calculate its loss using the `tf.keras.losses.SparseCategoricalCrossentropy` function which takes the model's class probability predictions and the desired label, and returns the average loss across the examples.
 
 ```python
 loss_object = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
 ```
+
 ```Python
 def loss(model, x, y, training):
-  # training=training is needed only if there are layers with different
-  # behavior during training versus inference (e.g. Dropout).
   y_ = model(x, training=training)
-
   return loss_object(y_true=y, y_pred=y_)
-
 
 l = loss(model, features, labels, training=False)
 print("Loss test: {}".format(l))
 ```
+
+training=training is needed only if there are layers with different
+behavior during training versus inference (e.g. Dropout).
+
 Use the `tf.GradientTape` context to calculate the *[gradients](https://developers.google.com/machine-learning/crash-course/glossary#gradient)* used to optimize your model:
 
 ```Python
@@ -268,6 +282,8 @@ def grad(model, inputs, targets):
     loss_value = loss(model, inputs, targets, training=True)
   return loss_value, tape.gradient(loss_value, model.trainable_variables)
 ```
+
+
   ### Create an optimizer
 
 An *[optimizer](https://developers.google.com/machine-learning/crash-course/glossary#optimizer)* applies the computed gradients to the model's variables to minimize the `loss` function. You can think of the loss function as a curved surface (see Figure 3) and we want to find its lowest point by walking around. The gradients point in the direction of steepest ascent—so we'll travel the opposite way and move down the hill. By iteratively calculating the loss and gradient for each batch, we'll adjust the model during training. Gradually, the model will find the best combination of weights and bias to minimize loss. And the lower the loss, the better the model's predictions.
@@ -285,10 +301,13 @@ An *[optimizer](https://developers.google.com/machine-learning/crash-course/glos
 TensorFlow has many optimization algorithms available for training. This model uses the `tf.keras.optimizers.SGD` that implements the *[stochastic gradient descent](https://developers.google.com/machine-learning/crash-course/glossary#gradient_descent)* (SGD) algorithm. The `learning_rate` sets the step size to take for each iteration down the hill. This is a *hyperparameter* that you'll commonly adjust to achieve better results.
 
 Let's setup the optimizer:
+
 ```Python
 optimizer = tf.keras.optimizers.SGD(learning_rate=0.01)
 ```
+
 We'll use this to calculate a single optimization step:
+
 ```Python
 loss_value, grads = grad(model, features, labels)
 
@@ -351,8 +370,9 @@ for epoch in range(num_epochs):
                                                                 epoch_accuracy.result()))
 ```
 
-### Visualize the loss function over time
 
+
+### Visualize the loss function over time
 ```Python
 ## Note: Rerunning this cell uses the same model variables
 
@@ -498,6 +518,8 @@ In real-life, the unlabeled examples could come from lots of different sources i
 * `0`: Iris setosa
 * `1`: Iris versicolor
 * `2`: Iris virginica
+
+  
 ```Python
 predict_dataset = tf.convert_to_tensor([
     [5.1, 3.3, 1.7, 0.5,],
