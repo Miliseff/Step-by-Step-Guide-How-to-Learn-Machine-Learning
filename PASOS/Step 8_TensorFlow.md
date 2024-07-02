@@ -1,12 +1,11 @@
-# Custom training: walkthrough
-
+## Custom training: walkthrough
 This guide uses machine learning to *categorize* Iris flowers by species. It uses TensorFlow to:
 1. Build a model,
 2. Train this model on example data, and
 3. Use the model to make predictions about unknown data.
-4. 
-## TensorFlow programming
 
+   
+## TensorFlow programming
 This guide uses these high-level TensorFlow concepts:
 
 * Use TensorFlow's default [eager execution](../../guide/eager.ipynb) development environment,
@@ -20,7 +19,8 @@ This tutorial is structured like many TensorFlow programs:
 3. Train the model.
 4. Evaluate the model's effectiveness.
 5. Use the trained model to make predictions.
-6. 
+
+
 ### Configure imports
 
 Import TensorFlow and the other required Python modules. By default,
@@ -137,9 +137,9 @@ train_dataset = tf.data.experimental.make_csv_dataset(
 
 The `make_csv_dataset` function returns a `tf.data.Dataset` of `(features, label)` pairs, where `features` is a dictionary: `{'feature_name': value}`
 
-```Python
-These `Dataset` objects are iterable. Let's look at a batch of features:
 
+These `Dataset` objects are iterable. Let's look at a batch of features:
+```Python
 features, labels = next(iter(train_dataset))
 
 print(features)
