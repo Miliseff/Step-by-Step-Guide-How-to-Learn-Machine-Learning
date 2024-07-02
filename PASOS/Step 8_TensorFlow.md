@@ -20,7 +20,7 @@ This tutorial is structured like many TensorFlow programs:
 3. Train the model.
 4. Evaluate the model's effectiveness.
 5. Use the trained model to make predictions.
-
+6. 
 ### Configure imports
 
 ```Python
@@ -96,8 +96,8 @@ From this view of the dataset, notice the following:
 
 Let's write that out in code:
 
+column order in CSV file
 ```Python
-# column order in CSV file
 column_names = ['sepal_length', 'sepal_width', 'petal_length', 'petal_width', 'species']
 
 feature_names = column_names[:-1]
@@ -123,8 +123,8 @@ TensorFlow's [Dataset API](../../guide/data.ipynb) handles many common cases for
 
 
 Since the dataset is a CSV-formatted text file, use the `tf.data.experimental.make_csv_dataset` function to parse the data into a suitable format. Since this function generates data for training models, the default behavior is to shuffle the data (`shuffle=True, shuffle_buffer_size=10000`), and repeat the dataset forever (`num_epochs=None`). We also set the [batch_size](https://developers.google.com/machine-learning/glossary/#batch_size) parameter:
-
 batch_size = 32
+
 ```Python
 train_dataset = tf.data.experimental.make_csv_dataset(
     train_dataset_fp,
@@ -135,6 +135,7 @@ train_dataset = tf.data.experimental.make_csv_dataset(
 ```
 
 The `make_csv_dataset` function returns a `tf.data.Dataset` of `(features, label)` pairs, where `features` is a dictionary: `{'feature_name': value}`
+
 ```Python
 These `Dataset` objects are iterable. Let's look at a batch of features:
 
@@ -146,6 +147,7 @@ print(features)
 Notice that like-features are grouped together, or *batched*. Each example row's fields are appended to the corresponding feature array. Change the `batch_size` to set the number of examples stored in these feature arrays.
 
 You can start to see some clusters by plotting a few features from the batch:
+
 ```Python
 plt.scatter(features['petal_length'],
             features['sepal_length'],
@@ -160,6 +162,7 @@ plt.show()
 To simplify the model building step, create a function to repackage the features dictionary into a single array with shape: `(batch_size, num_features)`.
 
 This function uses the `tf.stack` method which takes values from a list of tensors and creates a combined tensor at the specified dimension:
+
 ```Python
 def pack_features_vector(features, labels):
   """Pack the features into a single array."""
@@ -168,11 +171,13 @@ def pack_features_vector(features, labels):
 ```
 
 Then use the `tf.data.Dataset#map` method to pack the `features` of each `(features,label)` pair into the training dataset:
+
 ```Python
 train_dataset = train_dataset.map(pack_features_vector)
 ```
 
 The features element of the `Dataset` are now arrays with shape `(batch_size, num_features)`. Let's look at the first few examples:
+
 features, labels = next(iter(train_dataset))
 
 ```Python
@@ -181,13 +186,11 @@ print(features[:5])
 ```
 
 ### Why model?
-
 A *[model](https://developers.google.com/machine-learning/crash-course/glossary#model)* is a relationship between features and the label.  For the Iris classification problem, the model defines the relationship between the sepal and petal measurements and the predicted Iris species. Some simple models can be described with a few lines of algebra, but complex machine learning models have a large number of parameters that are difficult to summarize.
 
 Could you determine the relationship between the four features and the Iris species *without* using machine learning?  That is, could you use traditional programming techniques (for example, a lot of conditional statements) to create a model?  Perhaps—if you analyzed the dataset long enough to determine the relationships between petal and sepal measurements to a particular species. And this becomes difficult—maybe impossible—on more complicated datasets. A good machine learning approach *determines the model for you*. If you feed enough representative examples into the right machine learning model type, the program will figure out the relationships for you.
 
 ### Select the model
-
 We need to select the kind of model to train. There are many types of models and picking a good one takes experience. This tutorial uses a neural network to solve the Iris classification problem. *[Neural networks](https://developers.google.com/machine-learning/glossary/#neural_network)* can find complex relationships between features and the label. It is a highly-structured graph, organized into one or more *[hidden layers](https://developers.google.com/machine-learning/glossary/#hidden_layer)*. Each hidden layer consists of one or more *[neurons](https://developers.google.com/machine-learning/glossary/#neuron)*. There are several categories of neural networks and this program uses a dense, or *[fully-connected neural network](https://developers.google.com/machine-learning/glossary/#fully_connected_layer)*: the neurons in one layer receive input connections from *every* neuron in the previous layer. For example, Figure 2 illustrates a dense neural network consisting of an input layer, two hidden layers, and an output layer:
 
 <table>
@@ -201,6 +204,7 @@ We need to select the kind of model to train. There are many types of models and
 </table>
 
 When the model from Figure 2 is trained and fed an unlabeled example, it yields three predictions: the likelihood that this flower is the given Iris species. This prediction is called *[inference](https://developers.google.com/machine-learning/crash-course/glossary#inference)*. For this example, the sum of the output predictions is 1.0. In Figure 2, this prediction breaks down as: `0.02` for *Iris setosa*, `0.95` for *Iris versicolor*, and `0.03` for *Iris virginica*. This means that the model predicts—with 95% probability—that an unlabeled example flower is an *Iris versicolor*.
+
 ### Create a model using Keras
 
 The TensorFlow `tf.keras` API is the preferred way to create models and layers. This makes it easy to build models and experiment while Keras handles the complexity of connecting everything together.
