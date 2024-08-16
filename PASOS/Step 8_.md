@@ -1,22 +1,4 @@
-# Resumen de Visualización de Datos I
-
-- La visualización de datos facilita la interpretación y comunicación de información.
-- Tipos de gráficos:
-  - **Distribución**: Histogramas, gráficos de densidad, diagramas de caja.
-  - **Ranking**: Gráficos de barras, gráficos de torta.
-  - **Correlación**: Gráficos de dispersión, gráficos de densidad 2D.
-- Gráficos unidimensionales muestran una variable; bidimensionales muestran relaciones entre dos variables.
-- Selección de gráficos depende de las variables y el mensaje a comunicar.
-
-
-Ventajas de Gráficos de Densidad sobre Histogramas
-Los gráficos de densidad proporcionan una representación más suave y continua de la distribución de datos, lo que facilita la identificación de patrones y tendencias.
-
-Permiten comparar múltiples distribuciones en un solo gráfico sin la limitación de los intervalos de clase que tienen los histogramas.
-
-La suma de las áreas bajo la curva de un gráfico de densidad es igual a 1, lo que facilita la interpretación de probabilidades.
-
-
+# # Visualización de Datos I
 
 # Tipos de Gráficos y su Selección
 
