@@ -10,6 +10,7 @@ Distribution charts are used to show how data is distributed across a range of v
 #### 1.1.1. Histogram
 A histogram shows the distribution of a continuous variable by dividing the data into intervals (bins) and counting the frequency of data within each interval.
 
+
 ```python
 import matplotlib.pyplot as plt
 import numpy as np
