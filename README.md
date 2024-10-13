@@ -5,8 +5,8 @@ Welcome to this guide designed to help you learn or deepen your understanding of
 ## Table of Contents
 1. [Introduction to Machine Learning](./PASOS/Step%201.md)
 2. [Python Basics: Syntax and Variables](./PASOS/Step%202-Basic%20Basic%20Syntax%20and%20Variables.md)
-3. [Data Structures: Lists in Python](./PASOS/Step%203-Structures%20in%20Python-Lists.md)
-4. [Control Flow: if, else, and elif](./PASOS/Step%204-Usage%20of%20else%20and%20elif.md)
+3. [Data Structures: Lists in Python](./PASOS/Step%203-Structures%20in%20Python-Lists%20.md)
+4. [Control Flow: if, else, and elif](./PASOS/Step%204_Usage%20of%20else%20and%20elif.md)
 5. [Improving Data Quality](./PASOS/Step%205-Improving%20Data%20Quality.md)
 6. [Linear Regression: An Introduction](./PASOS/Step%206-Introduction%20to%20Linear%20Regression.md)
 7. [Logistic Regression](./PASOS/Step%207-Logistic%20Regression.md)
