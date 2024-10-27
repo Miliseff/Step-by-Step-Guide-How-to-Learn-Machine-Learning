@@ -43,7 +43,6 @@ To illustrate KNN, let’s implement two practical examples using the `scikit-le
 The **Iris** dataset is widely used for classification. It contains features of three flower species (setosa, versicolor, virginica), like sepal and petal length and width.
 
 Step 1: Import Necessary Libraries
-
 ```python
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
@@ -52,7 +51,6 @@ from sklearn.metrics import accuracy_score
 ```
 
 Step 2: Load the Dataset and Split it into Training and Testing Sets
-
 Load the dataset
 ```python
 iris = load_iris()
@@ -76,7 +74,6 @@ knn_classifier.fit(X_train, y_train)
 ```
 
 Step 4: Make Predictions and Evaluate the Model
-
 # Make predictions
 ```python
 y_pred = knn_classifier.predict(X_test)
@@ -90,11 +87,9 @@ print(f"KNN model accuracy with K={k}: {accuracy * 100:.2f}%")
 
 
 ### Example 2: Regression with KNN (House Price Prediction)
-
 Let’s use synthetic data to predict house prices based on house size.
 
 #### Step 1: Import Necessary Libraries
-
 ```python
 import numpy as np
 from sklearn.neighbors import KNeighborsRegressor
@@ -103,7 +98,6 @@ import matplotlib.pyplot as pltibraries
 
 
 Step 2: Create Example Data
-
 ```python
 # Example data
 X = np.array([[150], [200], [250], [300], [350], [400]]).reshape(-1, 1)  # House sizes (in m²)
@@ -121,17 +115,21 @@ plt.show()
 Step 3: Create and Train the KNN Model
 
 # Create the KNN model with K=2 for regression
+```python
 k = 2
 knn_regressor = KNeighborsRegressor(n_neighbors=k)
-
+```
 # Train the model
+```python
 knn_regressor.fit(X, y)
+```
+
 Step 4: Make Predictions
-python
-Copiar código
 # Make a prediction for a 325 m² house
+```python
 prediction = knn_regressor.predict([[325]])
 print(f"Predicted price for a 325 m² house: ${prediction[0]:,.2f}")
+```
 3. Choosing the Value of K
 The value of K directly affects model performance:
 
@@ -139,9 +137,9 @@ Small values of K (e.g., K=1 or K=3) tend to create models that fit closely to t
 Large values of K tend to make the model more generalized, which can lead to underfitting if important patterns are ignored.
 A good way to choose the value of K is to try different values and evaluate model performance on a validation set.
 
-python
-Copiar código
+
 # Example of testing different values of K
+```python
 from sklearn.model_selection import cross_val_score
 
 k_values = range(1, 11)
@@ -151,19 +149,17 @@ for k in k_values:
     knn_classifier = KNeighborsClassifier(n_neighbors=k)
     scores = cross_val_score(knn_classifier, X_train, y_train, cv=5)
     accuracies.append(scores.mean())
+```
 
 # Plot accuracy as a function of K
+```python
 plt.plot(k_values, accuracies)
 plt.xlabel("Value of K")
 plt.ylabel("Average Accuracy")
 plt.title("Choosing the Best K Value")
 plt.show()
+```
+
 Conclusion
 The K-Nearest Neighbors algorithm is easy to understand and implement and is useful for both classification and regression tasks in small-scale problems or well-distributed data. However, it has limitations in high-dimensional or large datasets due to its computational cost in the prediction phase.
 
-This lesson provides a fundamental understanding of KNN and practical examples to apply it. Would you like to dive deeper into any specific aspect or do more practical exercises?
-
-csharp
-Copiar código
-
-This Markdown file is organized, with clear headings, code blocks, and explanations. You can di

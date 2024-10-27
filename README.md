@@ -11,7 +11,9 @@ Welcome to this guide designed to help you learn or deepen your understanding of
 6. [Linear Regression: An Introduction](./PASOS/Step%206-Introduction%20to%20Linear%20Regression.md)
 7. [Logistic Regression](./PASOS/Step%207-Logistic%20Regression.md)
 8. [Data Visualization Basics](./PASOS/Step%208_Data%20Visualization%20I.md)
-
+9. [K-Nearest Neighbors (KNN)](./PASOS/Step%209_K-Nearest%20Neighbors%20(KNN).md)
+10. [Decision Tree](./PASOS/Step%209_Decision%20Tree.md)
+   
 ## Additional Resources
 - [Step 6: Additional Reading](./PASOS/Step%206_additional%20reading.md)
 - [Step 7: Additional Reading](./PASOS/Step%207-additional%20reading.md)
