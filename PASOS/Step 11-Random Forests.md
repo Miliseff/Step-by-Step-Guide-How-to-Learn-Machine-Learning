@@ -8,15 +8,17 @@
 4. Evaluate classification metrics and inspect feature importances  
 5. Apply RandomForestRegressor to a regression problem
 
-## 1. Introduction to Random Forests
+# 1. Introduction to Random Forests
 
 Random Forests combine multiple decision trees trained on different subsets of data to reduce variance and improve generalization.
 
-## 2. Ensembling and Bagging
+# 2. Ensembling and Bagging
 
-- What is Bagging?  
-- Advantages of combining several weak learners  
-- Difference between individual trees and a random forest
+Bagging (Bootstrap AGGregatING): each tree is trained on a random sample of the data taken with replacement.
+
+Feature subsampling: at each split, only a random subset of features is considered, which increases tree diversity.
+
+Variance reduction: by averaging (in regression) or voting (in classification) across many independent trees, overall predictions become more stable.
 
 ```python
 from sklearn.ensemble import RandomForestClassifier
@@ -24,24 +26,24 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, classification_report
 ```
 
-# Load example data
+## Load example data
 ```python
 from sklearn.datasets import load_iris
 X, y = load_iris(return_X_y=True)
 ```
 
-# Split into train/test
+## Split into train/test
 ```python
 X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42)
 ```
 
-# Train RandomForest
+## Train RandomForest
 ```python
 rf = RandomForestClassifier(n_estimators=100, max_depth=5, random_state=42)
 rf.fit(X_train, y_train)
 ```
 
-# Predict and evaluate
+## Predict and evaluate
 ```python
 y_pred = rf.predict(X_test)
 print("Accuracy:", accuracy_score(y_test, y_pred))
