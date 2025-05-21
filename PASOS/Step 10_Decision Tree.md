@@ -13,6 +13,7 @@ Each **node** stores a question about one feature, each **branch** is the outcom
 3. **Repeating the Process** – recursively repeat the procedure on each subset until a stopping rule is met (max depth, min samples, etc.).  
 4. **Making a Prediction** – to predict for a new sample, start at the root and follow the questions down to a leaf; the label or value stored in that leaf is the output.
 
+
 ---
 
 ## 2. Key Concepts
